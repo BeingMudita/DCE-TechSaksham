@@ -1,0 +1,10 @@
+Date: 19-02-2025
+Exercise: Badminton
+Duration: 40
+Calories burned: 100
+
+Date: 17-02-2025
+Exercise: Swimming
+Duration: 50
+Calories burned: 150
+
