@@ -1,0 +1,11 @@
+/mydbenv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.vscode/
+.DS_Store
+Thumbs.db
+pip-log.txt
+pip-delete-this-directory.txt
+.env
