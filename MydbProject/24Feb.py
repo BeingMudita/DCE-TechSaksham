@@ -64,6 +64,17 @@ def search (roll):
     except Exception as e:
         print(e)
 
+def displayAll():
+    try:
+        con = mysql.connector.connect(host = DB_HOST, user = DB_USER, password = DB_PASSWORD, database = DB_NAME)
+        cur = con.cursor()
+        cur.execute(f"select roll, name, branch, admission_year, percentage_10th, percentage_12 from student_record")
+        result = cur.fetchall()
+        return result
+    except Exception as e:
+        print(e)
+
+
     
 print("*" * 45 + "Welcome to DCE Data Analysis" + "*" * 45)
 while True:
@@ -97,7 +108,9 @@ while True:
         print(info)
         
     elif ch ==4:
-        pass
+        all = displayAll()
+        for i in all :
+            print(f"Rollno: {i[0]}\n Name: {i[1]}\n Branch: {i[2]}\n Admission Year: {i[3]}\n 10th Percentage: {i[4]}\n 12th Percentage: {i[5]}")
     elif ch ==5:
         break
     else:
