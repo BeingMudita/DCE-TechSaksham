@@ -34,10 +34,12 @@ def viewRecord():
 
 def display():
     data = viewRecord()
-    st.markdown("<table>", unsafe_allow_html=True)
-    for row in data:
-        st.markdown("<tr>", unsafe_allow_html=True)
-        
+    if data:
+        st.table(data)
+    else:
+        st.write("No records found.")
+
+
 
 
 
