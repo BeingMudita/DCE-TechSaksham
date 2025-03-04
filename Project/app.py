@@ -2,17 +2,8 @@ import streamlit as st
 import sqlite3
 import os
 
-# Connect to the SQLite database
-conn = sqlite3.connect('food_recommendations.db')
+conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'food_recommendations.db'))
 cursor = conn.cursor()
-
-# Check if the table exists (for debugging)
-cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-st.write("Existing tables:", cursor.fetchall())
-
-# Check table columns (for debugging)
-cursor.execute("PRAGMA table_info(food);")
-st.write("Table columns:", cursor.fetchall())
 
 # Set page config
 st.set_page_config(page_title="SwaadSaga", page_icon="🍛", layout="wide")
@@ -79,30 +70,22 @@ if submit_button:
         params.append(course)
 
     query += " LIMIT 10"
+    cursor.execute(query, params)
+    results = cursor.fetchall()
 
-    # Debugging: Print the query and parameters
-    st.write("Generated SQL Query:", query)
-    st.write("Query Parameters:", params)
-
-    try:
-        cursor.execute(query, params)
-        results = cursor.fetchall()
-
-        # Display results
-        if results:
-            st.subheader("Recommended Dishes:")
-            for name, image, description in results:
-                st.markdown(f"""
-                    <div class='food-item'>
-                        <img src='{image}' width='150'>
-                        <div class='description'>
-                            <b>{name}</b><br>{description}
-                        </div>
+    # Display results
+    if results:
+        st.subheader("Recommended Dishes:")
+        for name, image, description in results:
+            st.markdown(f"""
+                <div class='food-item'>
+                    <img src='{image}' width='150'>
+                    <div class='description'>
+                        <b>{name}</b><br>{description}
                     </div>
-                """, unsafe_allow_html=True)
-        else:
-            st.write("No recommendations available for the selected preferences.")
-    except sqlite3.OperationalError as e:
-        st.error(f"Database error: {e}")
+                </div>
+            """, unsafe_allow_html=True)
+    else:
+        st.write("No recommendations available for the selected preferences.")
 
 conn.close()
