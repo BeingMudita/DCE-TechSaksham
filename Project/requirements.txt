@@ -1,3 +1,2 @@
-Streamlit
-SQLite
-Pandas
+streamlit
+pandas
