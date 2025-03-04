@@ -1,8 +1,8 @@
 import streamlit as st
 import sqlite3
+import os
 
-# Connect to SQLite database
-conn = sqlite3.connect('food_recommendations.db')
+conn = sqlite3.connect(os.path.join(os.path.dirname(__file__), 'food_recommendations.db'))
 cursor = conn.cursor()
 
 # Set page config
